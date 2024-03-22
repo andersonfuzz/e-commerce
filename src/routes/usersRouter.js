@@ -1,11 +1,11 @@
 import express from "express";
-import usersController from "../controllers/usersController.js";
-const router = express.Router();
+import controller from "../controllers/usersController.js";
+const userRouter = express.Router();
 
-router.post("/ecommerce/users", usersController.create);
-router.get("/ecommerce/users", usersController.read);
-router.get("/ecommerce/users/:id", usersController.searchUser);
-router.put("/ecommerce/users/:id", usersController.update);
-router.delete("/ecommerce/users/:id", usersController.remove);
+userRouter.post("/ecommerce", controller.create);
+userRouter.get("/ecommerce", controller.read);
+userRouter.get("/ecommerce/:id", controller.searchUser);
+userRouter.put("/ecommerce/:id", controller.update);
+userRouter.delete("/ecommerce/:id", controller.remove);
 
-export default router;
+export default userRouter;

@@ -4,36 +4,32 @@ const create = async ({ body }, response) => {
     try {
         const newUser = await model.create(body);
         return response.status(201).json({ userId: newUser.insertId });
-    } catch (error) {
-        return response.status(500).json({ error: "error creating user!" });
+    } catch ({ message }) {
+        return response.status(500).json(message);
     }
 };
 const read = async (request, response) => {
     try {
         const users = await model.read();
         return response.status(200).json(users);
-    } catch (error) {
-        return response
-            .status(500)
-            .json({ error: "error when searching for users" });
+    } catch ({ message }) {
+        return response.status(500).json(message);
     }
 };
 const searchUser = async ({ params: { id } }, response) => {
     try {
         const user = await model.searchUser(id);
         return response.status(200).json(user);
-    } catch (error) {
-        return response.status(500).json({ error: "Unable to search user" });
+    } catch ({ message }) {
+        return response.status(500).json(message);
     }
 };
 const remove = async ({ params: { id } }, response) => {
     try {
         await model.remove(id);
-        return response.status(204).json({ message: `Deleted user id ${id}` });
-    } catch (error) {
-        return response
-            .status(500)
-            .json({ error: "Unable to delete this user" });
+        return response.status(204).json();
+    } catch ({ message }) {
+        return response.status(500).json(message);
     }
 };
 const update = async (request, response) => {
@@ -41,10 +37,8 @@ const update = async (request, response) => {
         const { id } = request.params;
         await model.update(id, request.body);
         return response.status(204).json();
-    } catch (error) {
-        return response
-            .status(500)
-            .json({ message: `failed to edit controller` });
+    } catch ({ message }) {
+        return response.status(500).json(message);
     }
 };
 export default {

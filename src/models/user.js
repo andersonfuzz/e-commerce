@@ -11,7 +11,7 @@ const create = async ({ cpf, nome, email, senha }) => {
         ]);
         return newUser;
     } catch ({ message }) {
-        throw new Error(`error creating user! ${message}`);
+        throw new Error(`unable to add a new user ${message}`);
     }
 };
 const read = async () => {
@@ -20,7 +20,7 @@ const read = async () => {
         const [users] = await connection.execute(query);
         return users;
     } catch ({ message }) {
-        throw new Error(`error when searching for users ${message}`);
+        throw new Error(`User list not found ${message}`);
     }
 };
 const searchUser = async (id) => {
@@ -29,7 +29,7 @@ const searchUser = async (id) => {
         const [user] = await connection.execute(query, [id]);
         return user;
     } catch ({ message }) {
-        throw new Error(`Unable to search user ${message}`);
+        throw new Error(`User not found ${message}`);
     }
 };
 const remove = async (id) => {
@@ -38,7 +38,7 @@ const remove = async (id) => {
         await connection.execute(query, [id]);
         return true;
     } catch ({ message }) {
-        throw new Error(`Unable to delete this user ${message}`);
+        throw new Error(`Unable to remove this user ${message}`);
     }
 };
 const update = async (id, user) => {
@@ -55,7 +55,7 @@ const update = async (id, user) => {
         ]);
         return editUser;
     } catch ({ message }) {
-        throw new Error(`failed to edit. ${message}`);
+        throw new Error(`Unable to edit this user's data. ${message}`);
     }
 };
 export default {
